@@ -2,7 +2,7 @@
 This is my first attempt at [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]].  The goal of this document is to create all the configuration files needed for my Emacs setup.  The setup can be built by invoking the =(org-babel-tangle)= function while visiting this file.
 
 ** Following the build
-Look under the section "Locations and paths" to make sure that those locations match the files on this computer.
+Look under the subheading "Locations and paths" in section "The init file" to make sure that those locations match the files on this computer.
 ** Data about this document
 #+title: JP's Emacs config file
 #+author: J.P. Prin
