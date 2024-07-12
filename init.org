@@ -138,30 +138,40 @@ Provide Emacs with the location of binaries that it uses in certain shells (like
   :END:
 ** Lisp macros
 #+begin_src emacs-lisp 
-; Apr 16 2017
-(defmacro every-p (lst)
-  "Takes a function and returns T if every element is true."
-  (cons 'and (eval lst)))
+  ; Apr 16 2017
+  (defmacro every-p (lst)
+    "Takes a function and returns T if every element is true."
+    (cons 'and (eval lst)))
 
-; Dec 13 2017
-(defmacro mac (expr)
-  "A macro shorthand to pretty-print macro expansions"
-  `(pp-macroexpand-expression ',expr))
+  ; Dec 13 2017
+  (defmacro mac (expr)
+    "A macro shorthand to pretty-print macro expansions"
+    `(pp-macroexpand-expression ',expr))
+
+  (defmacro loop (&rest body)
+    "Renaming the 'cl-loop' function."
+    `(cl-loop ,@body))
 #+end_src
-** Lisp functions
-#+begin_src emacs-lisp 
-(defun mapcar* (f &rest xs) 
-  "MAPCAR for multiple sequences"
-  (if (not (memq nil xs))
-      (cons (apply f (mapcar 'car xs))
-	    (apply 'mapcar* f (mapcar 'cdr xs)))))
 
-(defun range (start &optional end step) 
-  "A range function similar to Python's."
-  (unless end
-    (setq end start
-	  start 0))
-  (number-sequence start (1- end) step))
+** Lisp functions
+#+begin_src emacs-lisp
+  (defalias 'first 'car "Alias for 'car'")
+  (defalias 'second 'cadr "Alias for 'cadr'")
+  (defalias 'third 'caddr "Alias for 'caddr'")
+  (defalias 'fourth 'cadddr "Alias for 'cadddr'")
+
+  (defun mapcar* (f &rest xs) 
+    "MAPCAR for multiple sequences"
+    (if (not (memq nil xs))
+	(cons (apply f (mapcar 'car xs))
+	      (apply 'mapcar* f (mapcar 'cdr xs)))))
+
+  (defun range (start &optional end step) 
+    "A range function similar to Python's."
+    (unless end
+      (setq end start
+	    start 0))
+    (number-sequence start (1- end) step))
 #+end_src
 
 *** Math functions
@@ -170,7 +180,6 @@ Provide Emacs with the location of binaries that it uses in certain shells (like
   "Return the square of X."
   (* x x))
 #+end_src
-
 **** Random variable functions
 ***** Apply the Knuth shuffle to a list.
 This function only works on lists, not other sequences (like strings or arrays).  It does not shuffle the list in place, it returns a new list.
