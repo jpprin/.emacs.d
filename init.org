@@ -198,6 +198,34 @@ This function only works on lists, not other sequences (like strings or arrays).
   "Choose a random element from LST."
   (elt lst (random (length lst))))
 #+end_src
+**** Statistical functions
+#+begin_src emacs-lisp 
+(defun mean (lst)
+  "Return the arithmetic mean of LST."
+  (/ (apply #'+ lst) (float (length lst))))
+
+(defun covar (x y &optional population)
+  "Return the covariance of list X and list Y."
+  (if (not (= (length x) (length y)))
+      (user-error "ERROR: Lists must be the same length")
+  (let* ((x-mean (mean x))
+	(y-mean (mean y))
+	(len (float (length x)))
+	(n (if population len (1- len))))
+    (/
+     (cl-loop for i in x
+	      for j in y
+	      summing (* (- i x-mean) (- j y-mean)))
+     n))))
+
+(defun var (x &optional population)
+  "Return the variance of list X."
+  (covar x x population))
+
+(defun stdev (x &optional population)
+  "Return the standard deviation of list X."
+  (sqrt (var x population)))
+#+end_src
 ** File functions
 #+begin_src emacs-lisp 
 (defun load-data (file) 
