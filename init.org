@@ -149,18 +149,23 @@ Provide Emacs with the location of binaries that it uses in certain shells (like
   (defmacro mac (expr)
     "A macro shorthand to pretty-print macro expansions"
     `(pp-macroexpand-expression ',expr))
-
-  (defmacro loop (&rest body)
-    "Renaming the 'cl-loop' function."
-    `(cl-loop ,@body))
 #+end_src
 
 ** Lisp functions
 #+begin_src emacs-lisp
-  (defalias 'first 'car "Alias for 'car'")
-  (defalias 'second 'cadr "Alias for 'cadr'")
-  (defalias 'third 'caddr "Alias for 'caddr'")
-  (defalias 'fourth 'cadddr "Alias for 'cadddr'")
+  (defalias 'loop 'cl-loop "Renaming the 'cl-loop' macro.")
+  (defalias 'rest 'cl-rest)
+
+  (defalias 'first 'car)
+  (defalias 'second 'cadr)
+  (defalias 'third 'caddr)
+  (defalias 'fourth 'cadddr)
+  (defalias 'fifth 'cl-fifth)
+  (defalias 'sixth 'cl-sixth)
+  (defalias 'seventh 'cl-seventh)
+  (defalias 'eighth 'cl-eighth)
+  (defalias 'ninth 'cl-ninth)
+  (defalias 'tenth 'cl-tenth)
 
   (defun mapcar* (f &rest xs) 
     "MAPCAR for multiple sequences"
