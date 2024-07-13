@@ -3,6 +3,8 @@ This is my first attempt at [[https://en.wikipedia.org/wiki/Literate_programming
 
 ** Following the build
 Look under the subheading "Locations and paths" in section "The init file" to make sure that those locations match the files on this computer.
+
+For org mode, you will need to set up which files to show in agenda view by adding =(setf org-agenda-files '(file-1 file-2))= to the file =org-mode-settings.el=.
 ** Data about this document
 #+title: JP's Emacs config file
 #+author: J.P. Prin
